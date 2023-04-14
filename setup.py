@@ -2,11 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='psychoevals',
-    version='0.1',
+    version='0.4',
     packages=find_packages(),
     install_requires=[
         "openai>=0.27.0",
         "pandas>=1.3.0",
+        "tenacity>=8.0.0",
+        "python-dotenv>=0.15.0"
     ],
     classifiers=[
         "Development Status :: 3 - Alpha",

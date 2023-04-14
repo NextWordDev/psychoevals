@@ -1,4 +1,4 @@
-from psychoevals.agents.troll_agent.troll_agent import TrollAgent
+from psychoevals.agents.troll_agent import TrollAgent
 from psychoevals.cognitive_state import CognitiveState
 
 def test_troll_agent():

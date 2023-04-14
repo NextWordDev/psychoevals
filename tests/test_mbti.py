@@ -1,6 +1,6 @@
 # test_end_to_end.py
 import pandas as pd
-from psychoevals.agents import MyersBriggs
+from psychoevals.agents.myers_briggs import MyersBriggs
 from psychoevals.cognitive_state import CognitiveState
 
 def test_myers_briggs():

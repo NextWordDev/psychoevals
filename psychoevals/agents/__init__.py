@@ -1,0 +1,1 @@
+from .myers_briggs.myers_briggs import MyersBriggs

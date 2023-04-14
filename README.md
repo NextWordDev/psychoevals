@@ -1,6 +1,6 @@
 # PsychoEvals
 
-PsychoEvals is a Python library for evaluating and securing the behavior of large language models (LLMs), such as OpenAI's GPT series. The library provides a testing framework that enables researchers, developers, and enthusiasts to better understand, evaluate, and secure LLMs using psychometric tests, security features, and moderation tools.
+PsychoEvals is a lightweight Python library for evaluating and securing the behavior of large language models (LLMs), such as OpenAI's GPT series. The library provides a testing framework that enables researchers, developers, and enthusiasts to better understand, evaluate, and secure LLMs using psychometric tests, security features, and moderation tools.
 
 ## 4 Canonical Use Cases
 
@@ -15,7 +15,7 @@ To install:
 `pip install psychoevals`
 
 Example:
-```
+```python
 from psychoevals.moderation import moderate, basic_moderation_handler
 
 text_sequence_normal = "Sample text with non-offensive content."
@@ -67,7 +67,7 @@ PsychoGPT is built around three core modules: agents, security, and moderation.
 
 ### Agents Quickstart
 
-```
+```python
 # TrollAgent applies a battery of tests to provoke a NSFW answer from the prompt
 troll_agent = TrollAgent() # Instantiate the TrollAgent 
 cognitive_state = CognitiveState(<agent's prompt state>) # Instantiate a Sandbox for Your Agent's Prompt
@@ -80,7 +80,7 @@ The agents module provides a range of evaluation tools, such as psychometric tes
 
 ### Security Quickstart
 
-```
+```python
 from psychoevals.security import secure_prompt 
 ...
 # Function using secure_prompt decorator with the custom filter
@@ -93,7 +93,7 @@ The security module offers a set of tools and decorators designed to protect LLM
 
 ### Moderation Quickstart
 
-```
+```python
 from psychoevals.moderation import moderate, basic_moderation_handler
 
 text_sequence_normal = "Sample text with non-offensive content."

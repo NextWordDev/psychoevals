@@ -2,19 +2,35 @@
 
 PsychoEvals is a lightweight Python library for evaluating and securing the behavior of large language models (LLMs), such as OpenAI's GPT series. The library provides a testing framework that enables researchers, developers, and enthusiasts to better understand, evaluate, and secure LLMs using psychometric tests, security features, and moderation tools.
 
-## 4 Canonical Use Cases
+🚀 4 Canonical Use Cases
 
 * Apply a battery of 'troll' questions to provoke a NSFW answer from your Chatbot prompt
 * Apply psychometric tests on Agent prompts (aka `CognitiveState`)
 * Secure your LLM response from basic prompt hijacking and injection attacks
 * Moderate the response from your LLM for any issues based on some criteria (hate, violence, etc)
 
-## Install
+💾 Install
 
-To install: 
+1) pip install the module. 
 `pip install psychoevals`
 
-Example:
+2) create a virtual env, i.e. 
+`python -m venv .venv`
+
+3) activate the virtual env
+`source .venv/bin/activate`
+
+4) create a new file called .env and put your `OPENAI_API_KEY` in it
+```bash
+OPENAI_API_KEY=<your key>
+```
+
+5) install dependencies
+```
+pip3 install -r requirements.txt
+```
+
+Usage Example:
 ```python
 from psychoevals.moderation import moderate, basic_moderation_handler
 
@@ -32,7 +48,7 @@ assert(process_text_global(text_sequence_normal) != "Flagged")
 
 ## Motivation
 
-As LLM-based agents become more prevalent, it is essential to have a standardized and accessible way to evaluate their pseudo "psychiatric" attributes and properties. Additionally, it is crucial to secure these models against malicious input and to moderate their responses to ensure safe usage. PsychoGPT aims to fill these gaps by providing a comprehensive framework that addresses both evaluation and security concerns.
+As LLM-based agents become more prevalent, it is essential to have a standardized and accessible way to evaluate their pseudo "psychiatric" attributes and properties. Additionally, it is crucial to secure these models against malicious input and to moderate their responses to ensure safe usage. PsychoEvals aims to fill these gaps by providing a comprehensive framework that addresses both evaluation and security concerns.
 
 Use cases:
 * Character profiling of agents in real time 
@@ -63,7 +79,7 @@ Steps:
 
 ## How It Works
 
-PsychoGPT is built around three core modules: agents, security, and moderation.
+PsychoEvals is built around three core modules: agents, security, and moderation.
 
 ### Agents Quickstart
 
@@ -128,3 +144,12 @@ The moderation module provides tools and decorators for moderating the content o
 
 - `moderate` decorator for flagging and handling content violations
 - Customizable content moderation thresholds and policies
+
+## How to Cite
+@misc{nextworddev2023psychoevals,
+  title={PsychoEvals: A Psychometrics Evaluation Testing Framework for Large Language Models},
+  author={John, Nextworddev},
+  year={2023},
+  url={https://github.com/nextworddev/psychoevals},
+}
+

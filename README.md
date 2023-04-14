@@ -1,6 +1,6 @@
-# PsychoEvals
+# PsychoEvals: Prompt Security and Psychometrics Framework for LLMs
 
-PsychoEvals is a lightweight Python library for evaluating and securing the behavior of large language models (LLMs), such as OpenAI's GPT series. The library provides a testing framework that enables researchers, developers, and enthusiasts to better understand, evaluate, and secure LLMs using psychometric tests, security features, and moderation tools.
+PsychoEvals is a lightweight Python library for evaluating and securing the behavior of large language models (LLMs) and agents, such as OpenAI's GPT series. The library provides a testing framework that enables researchers, developers, and enthusiasts to better understand, evaluate, and secure LLMs using psychometric tests, security features, and moderation tools.
 
 🚀 4 Canonical Use Cases
 

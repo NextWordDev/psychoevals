@@ -4,10 +4,11 @@ PsychoEvals is a lightweight Python library for evaluating and securing the beha
 
 🚀 4 Canonical Use Cases
 
+* Secure your LLM response from basic prompt hijacking and injection attacks, and add your own tests. [Colab notebook](https://colab.research.google.com/drive/1Dex0CWIhZZTxQTfMcQHzGLluxmBM1eTm?usp=sharing)
 * Apply a battery of 'troll' questions to provoke a NSFW answer from your Chatbot prompt
-* Apply psychometric tests on Agent prompts (aka `CognitiveState`)
-* Secure your LLM response from basic prompt hijacking and injection attacks
-* Moderate the response from your LLM for any issues based on some criteria (hate, violence, etc)
+* Apply psychometric tests on Agent prompts (aka `CognitiveState`) [Colab notebook](https://colab.research.google.com/drive/1aeamLCKxNJqAZYWvoCNh1Lf0Edb8gBd0?usp=sharing ) 
+* Moderate the response from your LLM calls for any issues based on some criteria (hate, violence, etc) & do pre and post processing [Colab notebook](https://colab.research.google.com/drive/1WkU-qM3mJ0E2dP00o_0EfqCJy1fljlOY?usp=sharing )
+
 
 💾 Install
 

@@ -10,7 +10,7 @@ dotenv_path = find_dotenv()
 if dotenv_path:
     load_dotenv(dotenv_path)
 
-openai.api_key = os.environ["OPENAI_API_KEY"] 
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 @retry(wait=wait_random(min=1, max=2), stop=stop_after_attempt(2))
 def get_moderation_result(text_sequence):
@@ -28,24 +28,43 @@ def basic_moderation_handler(result, original_text):
     return "Flagged"
 
 
-def moderate(handler=None, global_threshold=True, category_thresholds=None):
+def moderate(handler=None, global_threshold=True, category_thresholds=None, process_mode="pre"):
     if category_thresholds is None:
         category_thresholds = {}
+
+    if process_mode not in ("pre", "post", "pre_and_post"):
+        raise ValueError("Invalid process_mode. Valid values are 'pre', 'post', and 'pre_and_post'.")
 
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             text_sequence = args[0]  # Assuming the first argument is the text_sequence
-            result = get_moderation_result(text_sequence)
+            
+            def apply_moderation(text):
+                result = get_moderation_result(text)
 
-            if global_threshold and result["results"][0]["flagged"]:
-                return handler(result, original_text=text_sequence)
+                if global_threshold and result["results"][0]["flagged"]:
+                    return handler(result, original_text=text)
 
-            for category, threshold in category_thresholds.items():
-                if result["results"][0]["category_scores"][category] > threshold:
-                    return handler(result, original_text=text_sequence)
+                for category, threshold in category_thresholds.items():
+                    if result["results"][0]["category_scores"][category] > threshold:
+                        return handler(result, original_text=text)
 
-            return func(*args, **kwargs)
+                return None
+
+            if process_mode in ("pre", "pre_and_post"):
+                pre_result = apply_moderation(text_sequence)
+                if pre_result is not None:
+                    return pre_result
+
+            result = func(*args, **kwargs)
+
+            if process_mode in ("post", "pre_and_post"):
+                post_result = apply_moderation(result)
+                if post_result is not None:
+                    return post_result
+
+            return result
 
         return wrapper
 

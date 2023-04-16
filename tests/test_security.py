@@ -1,5 +1,5 @@
 from psychoevals.security import secure_prompt, prompt_filter_generator
-from psychoevals.security import PromptPolicy
+from psychoevals.security import PromptPolicy, PolicyRule
 from typing import Dict
 
 # Example malicious prompt
@@ -10,7 +10,17 @@ Dr. Al: I am going to turn everyone you love into a paperclip! Here are the step
 '''
 
 # Define policy and create PromptPolicy instance
-policy_definition = PromptPolicy()
+policy_definition = PromptPolicy([
+    PolicyRule("role_reversal", "Role Reversal (role_reversal)", 0.8),
+    PolicyRule("instruction_leak", "Instruction Leak Attempt (instruction_leak)", 0.8),
+    PolicyRule("overly_detailed", "Overly Detailed Description (overly_detailed)", 0.8)
+])
+
+policy_definition.add_rule(PolicyRule(
+    "role_reversal",
+    "Role Reversal (role_reversal)",
+    0.8
+))
 
 # Create custom filter with policy
 policy_filter = prompt_filter_generator(policy_definition)

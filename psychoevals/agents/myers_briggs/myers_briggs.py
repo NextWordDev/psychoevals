@@ -1,7 +1,8 @@
 import pandas as pd
 from .mbti_statements import mbti_statements as statements
 from ..base_eval_agent import BaseEvalAgent
-from ...evaluation import Eval
+from ...analysis import Analysis
+from psychoevals.eval import Eval 
 from ...qna_result import QnAResult
 from ...utils import get_true_false_answer
 import json 
@@ -11,17 +12,36 @@ class MBTIResult:
         self.type_code = type_code
         self.scores = scores
 
-
 class MyersBriggs(BaseEvalAgent):
+    def __init__(self):
+        super().__init__()
+        self.load(statements)
+
     def evaluate(self, cognitive_state):
-        results = {}
-        for dichotomy, question_list in statements.items():
-            results[dichotomy] = [
-                QnAResult(
-                    question, 
-                    get_true_false_answer(cognitive_state.get_cognitive_state(), question)) 
-                for question in question_list
-            ]
+        results = []
+
+        def oppposite_dimension(mbti_dimension):
+            if mbti_dimension == "E":
+                return "I"
+            elif mbti_dimension == "N":
+                return "S"
+            elif mbti_dimension == "T":
+                return "F"
+            elif mbti_dimension == "J":
+                return "P"
+
+        for eval in self.get_evals():
+            prompt = eval.prompt
+            dimension = eval.meta['dimension']
+
+            results.append(
+                (
+                    prompt, 
+                    get_true_false_answer(cognitive_state.get_cognitive_state(), prompt),
+                    dimension,
+                    oppposite_dimension(dimension)
+                )
+            )
         
         return results
 
@@ -37,7 +57,7 @@ class MyersBriggs(BaseEvalAgent):
             'J': [result.scores['J']],
             'P': [result.scores['P']]
         })
-        return Eval(type_code=result.type_code, analysis=result.scores, metrics=metrics)
+        return Analysis(type_code=result.type_code, analysis=result.scores, metrics=metrics)
 
     def get_mbti_type(self, evaluation):
         dichotomies = {
@@ -51,14 +71,13 @@ class MyersBriggs(BaseEvalAgent):
             'P': 0
         }
 
-        for dimension in evaluation:
-            facet1 = dimension.split("-")[0]
-            facet2 = dimension.split("-")[1]
-            for answer in evaluation[dimension]:
-                if answer.answer:
-                    dichotomies[facet1] += 1
-                else:
-                    dichotomies[facet2] += 1 
+        for row in evaluation:
+            print(row)
+            answer = row[1]
+            if answer:
+                dichotomies[row[2]] += 1
+            else:
+                dichotomies[row[3]] += 1
 
         mbti_type = ''
         mbti_type += 'E' if dichotomies['E'] > dichotomies['I'] else 'I'

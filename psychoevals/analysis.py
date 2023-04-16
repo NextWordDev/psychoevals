@@ -1,4 +1,4 @@
-class Eval:
+class Analysis:
     def __init__(self, **kwargs):
         self._fields = kwargs
 

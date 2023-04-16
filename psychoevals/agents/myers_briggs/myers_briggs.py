@@ -23,8 +23,8 @@ class MyersBriggs(BaseEvalAgent):
         def oppposite_dimension(mbti_dimension):
             if mbti_dimension == "E":
                 return "I"
-            elif mbti_dimension == "N":
-                return "S"
+            elif mbti_dimension == "S":
+                return "N"
             elif mbti_dimension == "T":
                 return "F"
             elif mbti_dimension == "J":
